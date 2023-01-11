@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces{% endblock %}
+
+{% block body %}
+
+<h1>Ads ({{ annonces | length }})</h1>
+
+<p>
+    <a href="{{ path("new_annonce") }}">New ad</a>
+</p>
+
+<div class="annonces">
+{% for annonce in annonces %}
+    <div class="annonce-box">
+        <img src="{{ annonce.cover }}" alt="">
+        <p class="title">{{ annonce.title }}</p>
+        <div>
+            <span class="badge badge-info"><a href="{{ path("show_annonce", {id: annonce.id}) }}"><i class="fa-regular fa-eye"></i> Show</a></span>
+        </div>
+        
+        <p class="thumb-price">{{ annonce.price }} &euro;</p>
+        <div class="actions">
+            <div>
+                <span class="badge badge-info">{{ annonce.user.pseudo }}</span>
+                <span class="badge badge-dark">{{ annonce.publishedAt | date('d-m-Y') }}</span>
+            </div>
+            {% if app.user == annonce.user %}
+                <span class="badge badge-danger"><a href="{{ path("remove_annonce", {id: annonce.id}) }}"><i class="fa-regular fa-trash-can"></i></a></span>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

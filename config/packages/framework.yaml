@@ -18,6 +18,11 @@ framework:
     php_errors:
         log: true
 
+    http_client:
+        scoped_clients:
+            lego:
+                base_uri: https://rebrickable.com
+
 when@test:
     framework:
         test: true

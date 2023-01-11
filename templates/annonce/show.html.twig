@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce{% endblock %}
+
+{% block body %}
+
+<h1 class="mb-0">{{ annonce.title }}</h1>
+<h2 class="mt-0">{{ theme.name}}</h2>
+<span>{{ annonce.user.pseudo }}</span>
+<p class="price">{{ annonce.price }} &euro;</p>
+
+<p>
+    Year : {{  details["year"] }} <br>
+    Nb parts : {{  details["num_parts"] }}
+</p>
+
+<div class="set-img-box">
+    <img src="{{ details["set_img_url"] }}" alt="">
+</div>
+
+<h2>Minifigs</h2>
+
+<div class="set-minifigs-box">
+{% for minifig in minifigs %}
+    <div class="set-minifig">
+        {% if minifig["set_img_url"] %}
+            <div class="set-minifig-img">
+                <img src="{{ minifig["set_img_url"] }}" alt="">
+            </div>
+            <p>{{ minifig["set_name"] }}</p>
+        {% else %}    
+            <div class="set-minifig-img">
+                <img src="{{ asset("img/404.jpg") }}" alt="">
+            </div>
+            <p>{{ minifig["set_name"] }}</p>
+        {% endif %}
+    </div>
+{% endfor %}
+</div>
+
+<h2>Comments</h2>
+{% for comment in annonce.comments %}
+    {{ comment.user.pseudo }} - {{ comment.message }} at {{ comment.createdAt | date('d-m-Y') }} <br>
+{% endfor %}
+
+{% endblock %}

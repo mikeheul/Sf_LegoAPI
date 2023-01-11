@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Annonce{% endblock %}
+
+{% block body %}
+
+<h1>Post an ad</h1>
+
+{# {{ dump(sets) }} #}
+
+{{ form_start(formNewAnnonce) }}
+    {{ form_row(formNewAnnonce.title) }}
+    <label for="setAnnonce">Set</label>
+    <select name="setAnnonce" id="setAnnonce">
+        {% for setAnnonce in sets %}
+            <option value="{{ setAnnonce.set_num }}">
+                {{ setAnnonce.name ~ ' (' ~ setAnnonce.set_num ~ ' - ' ~ setAnnonce.year ~ ')' }}
+            </option>
+        {% endfor %}    
+    </select>
+    {{ form_row(formNewAnnonce.price) }}
+{{ form_end(formNewAnnonce) }}
+
+
+{% endblock %}
