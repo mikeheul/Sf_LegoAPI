@@ -2,18 +2,20 @@
 
 namespace App\HttpClient;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Class LegoHttpClient
  * @package App\Client
  */
-class LegoHttpClient
+class LegoHttpClient extends AbstractController
 {
     /**
      * @var HttpClientInterface
      */
     private $httpClient;
+    private $key;
 
     /**
      * LegottpClient constructor.
@@ -24,14 +26,14 @@ class LegoHttpClient
     {
         $this->httpClient = $lego;
     }
-
+    
     /**
      * @return array
      */
     public function getSets(): array
     {
-        // 5fd20b58ad29e058d268dfd5d5720edb
-        $response = $this->httpClient->request('GET', "/api/v3/lego/sets/?key=5fd20b58ad29e058d268dfd5d5720edb&page_size=1000&theme_id=171&ordering=year", [
+        $key = $this->getParameter('api_key');
+        $response = $this->httpClient->request('GET', "/api/v3/lego/sets/?key=$key&page_size=1000&theme_id=171&ordering=year", [
             'verify_peer' => false, 
         ]);
         $data = json_decode($response->getContent(), true);
@@ -47,7 +49,8 @@ class LegoHttpClient
 
     public function getSetInfo($id): array
     {
-        $response = $this->httpClient->request('GET', "/api/v3/lego/sets/$id/?key=5fd20b58ad29e058d268dfd5d5720edb", [
+        $key = $this->getParameter('api_key');
+        $response = $this->httpClient->request('GET', "/api/v3/lego/sets/$id/?key=$key", [
             'verify_peer' => false, 
         ]);
         $data = json_decode($response->getContent(), true);
@@ -57,7 +60,8 @@ class LegoHttpClient
 
     public function getThemeInfo($id): array 
     {
-        $response = $this->httpClient->request('GET', "/api/v3/lego/themes/$id/?key=5fd20b58ad29e058d268dfd5d5720edb", [
+        $key = $this->getParameter('api_key');
+        $response = $this->httpClient->request('GET', "/api/v3/lego/themes/$id/?key=$key", [
             'verify_peer' => false, 
         ]);
         $data = json_decode($response->getContent(), true);
@@ -67,7 +71,8 @@ class LegoHttpClient
 
     public function getMinifigs($id): array 
     {
-        $response = $this->httpClient->request('GET', "/api/v3/lego/sets/$id/minifigs/?key=5fd20b58ad29e058d268dfd5d5720edb", [
+        $key = $this->getParameter('api_key');
+        $response = $this->httpClient->request('GET', "/api/v3/lego/sets/$id/minifigs/?key=$key", [
             'verify_peer' => false, 
         ]);
         $data = json_decode($response->getContent(), true);
