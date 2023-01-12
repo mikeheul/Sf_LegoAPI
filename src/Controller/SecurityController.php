@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -37,7 +39,7 @@ class SecurityController extends AbstractController
     #[Route(path: '/bookmarks', name: 'app_bookmarks')]
     public function bookmarks(UserRepository $ur): Response
     {
-        $user = $ur->find($this->getUser()->getId());
+        $user = $ur->find($this->getUser());
         $bookmarks = $user->getBookmarks();
         return $this->render('security/bookmarks.html.twig', [
             'bookmarks' => $bookmarks
@@ -46,9 +48,8 @@ class SecurityController extends AbstractController
 
     #[Route(path: '/bookmark/add/{idAnnonce}', name: 'add_bookmark')]
     #[ParamConverter('annonce', options:['mapping' => ['idAnnonce' => 'id']])]
-    public function addBookmark(Annonce $annonce, ManagerRegistry $doctrine): Response
+    public function addBookmark(Annonce $annonce, ManagerRegistry $doctrine, UserInterface $user): Response
     {
-        $user = $this->getUser();
         $user->addBookmark($annonce);
 
         $em = $doctrine->getManager();
@@ -60,9 +61,8 @@ class SecurityController extends AbstractController
 
     #[Route(path: '/bookmark/remove/{idAnnonce}', name: 'remove_bookmark')]
     #[ParamConverter('annonce', options:['mapping' => ['idAnnonce' => 'id']])]
-    public function removeBookmark(Annonce $annonce, ManagerRegistry $doctrine): Response
+    public function removeBookmark(Annonce $annonce, ManagerRegistry $doctrine, UserInterface $user): Response
     {
-        $user = $this->getUser();
         $user->removeBookmark($annonce);
 
         $em = $doctrine->getManager();
