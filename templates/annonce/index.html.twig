@@ -12,11 +12,11 @@
 
 <div class="annonces">
 {% for annonce in annonces %}
-    <div class="annonce-box">
+    <div class="annonce-box {{ annonce.user == app.user ? 'user-annonce' : '' }}">
         <img src="{{ annonce.cover }}" alt="">
         <p class="title">{{ annonce.title }}</p>
         <div>
-            <span class="badge badge-info"><a href="{{ path("show_annonce", {id: annonce.id}) }}"><i class="fa-regular fa-eye"></i> Show</a></span>
+            <span class="badge badge-default"><a href="{{ path("show_annonce", {id: annonce.id}) }}"><i class="fa-regular fa-eye"></i> Show</a></span>
         </div>
         
         <p class="thumb-price">{{ annonce.price }} &euro;</p>

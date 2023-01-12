@@ -18,16 +18,26 @@
     </head>
     <body>
         <div id="container">
-            {% if app.user %}
-                <span>{{ app.user.pseudo }}</span>
-                <a href="{{ path("app_logout") }}">Logout</a>
-                <a href="{{ path("app_annonce") }}">Ads list</a>
-                <a href="{{ path("app_bookmarks") }}">My bookmarks</a>
+            <nav>
+                {% if app.user %}
+                    <div>
+                        <a href="{{ path("app_annonce") }}">Ads list</a>
+                        <a href="{{ path("app_bookmarks") }}">My bookmarks</a>
+                    </div>
+                    <div>
+                        <span>{{ app.user.pseudo }}</span>
+                        <a href="{{ path("app_logout") }}">Logout</a>
+                    </div>
                 {% else %}
-                <a href="{{ path("app_register") }}">Register</a>    
-                <a href="{{ path("app_login") }}">Login</a>    
-                <a href="{{ path("app_annonce") }}">Ads list</a>
-            {% endif %}
+                    <div>
+                        <a href="{{ path("app_annonce") }}">Ads list</a>
+                    </div>
+                    <div>
+                        <a href="{{ path("app_register") }}">Register</a>    
+                        <a href="{{ path("app_login") }}">Login</a>    
+                    </div>
+                {% endif %}
+            </nav>
             {% block body %}{% endblock %}
         </div>
 

@@ -15,7 +15,6 @@ class LegoHttpClient extends AbstractController
      * @var HttpClientInterface
      */
     private $httpClient;
-    private $key;
 
     /**
      * LegottpClient constructor.
