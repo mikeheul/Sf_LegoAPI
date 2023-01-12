@@ -26,6 +26,7 @@ body {
 }
 
 .annonce-box {
+    position: relative;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -126,4 +127,14 @@ body {
 
 .badge-dark {
     background: rgb(58, 58, 58);
+}
+
+.bookmark {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.bookmark i {
+    font-size: 20px;
+    color:rgb(181, 34, 85)
 }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bookmarks{% endblock %}
+
+{% block body %}
+
+<h1>Bookmarks</h1>
+
+{% for bookmark in bookmarks %}
+    <a href="{{ path('show_annonce', {id: bookmark.id}) }}">{{ bookmark.title }}</a>&nbsp;<span class="badge badge-danger"><a href=""><i class="fa-regular fa-trash-can"></i></a></span><br>
+{% endfor %}
+
+{% endblock %}

@@ -44,10 +44,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options:["default" => "CURRENT_TIMESTAMP"])]
     private ?\DateTimeInterface $registredAt = null;
 
+    #[ORM\ManyToMany(targetEntity: Annonce::class, inversedBy: 'users')]
+    private Collection $bookmarks;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->bookmarks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,6 +204,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRegistredAt(\DateTimeInterface $registredAt): self
     {
         $this->registredAt = $registredAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Annonce>
+     */
+    public function getBookmarks(): Collection
+    {
+        return $this->bookmarks;
+    }
+
+    public function addBookmark(Annonce $bookmark): self
+    {
+        if (!$this->bookmarks->contains($bookmark)) {
+            $this->bookmarks->add($bookmark);
+        }
+
+        return $this;
+    }
+
+    public function removeBookmark(Annonce $bookmark): self
+    {
+        $this->bookmarks->removeElement($bookmark);
 
         return $this;
     }

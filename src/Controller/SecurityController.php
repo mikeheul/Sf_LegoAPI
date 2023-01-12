@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Annonce;
+use App\Repository\UserRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -28,5 +32,43 @@ class SecurityController extends AbstractController
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    #[Route(path: '/bookmarks', name: 'app_bookmarks')]
+    public function bookmarks(UserRepository $ur): Response
+    {
+        $user = $ur->find($this->getUser()->getId());
+        $bookmarks = $user->getBookmarks();
+        return $this->render('security/bookmarks.html.twig', [
+            'bookmarks' => $bookmarks
+        ]);
+    }
+
+    #[Route(path: '/bookmark/add/{idAnnonce}', name: 'add_bookmark')]
+    #[ParamConverter('annonce', options:['mapping' => ['idAnnonce' => 'id']])]
+    public function addBookmark(Annonce $annonce, ManagerRegistry $doctrine): Response
+    {
+        $user = $this->getUser();
+        $user->addBookmark($annonce);
+
+        $em = $doctrine->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("app_annonce");
+    }
+
+    #[Route(path: '/bookmark/remove/{idAnnonce}', name: 'remove_bookmark')]
+    #[ParamConverter('annonce', options:['mapping' => ['idAnnonce' => 'id']])]
+    public function removeBookmark(Annonce $annonce, ManagerRegistry $doctrine): Response
+    {
+        $user = $this->getUser();
+        $user->removeBookmark($annonce);
+
+        $em = $doctrine->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("app_annonce");
     }
 }
