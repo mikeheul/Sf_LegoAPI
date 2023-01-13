@@ -26,6 +26,7 @@ a {
 }
 
 nav {
+    z-index: 99;
     background: rgb(58, 58, 58);
     color: #fff;
     border-radius: 8px;
