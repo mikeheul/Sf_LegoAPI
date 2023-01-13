@@ -66,6 +66,10 @@ nav a {
     text-align: center;
     border-radius: 10px;
     background: #fff;
+    transition: .5s;
+}
+.annonce-box:hover {
+    transform: translateY(-5px);
 }
 .annonce-box.user-annonce {
     border: 3px solid rgb(205, 26, 67);
