@@ -40,6 +40,9 @@ class Annonce
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'bookmarks')]
     private Collection $users;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -175,6 +178,18 @@ class Annonce
         if ($this->users->removeElement($user)) {
             $user->removeBookmark($this);
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

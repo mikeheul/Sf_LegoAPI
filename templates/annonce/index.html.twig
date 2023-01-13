@@ -25,9 +25,12 @@
                 <span class="badge badge-info">{{ annonce.user.pseudo }}</span>
                 <span class="badge badge-dark">{{ annonce.publishedAt | date('d-m-Y') }}</span>
             </div>
-            {% if app.user == annonce.user %}
-                <span class="badge badge-danger"><a href="{{ path("remove_annonce", {id: annonce.id}) }}"><i class="fa-regular fa-trash-can"></i></a></span>
-            {% endif %}
+            <div>
+                {% if app.user == annonce.user %}
+                    <span class="badge badge-default"><a href="edit"><i class="far fa-edit"></i></a></span>
+                    <span class="badge badge-danger"><a href="{{ path("remove_annonce", {id: annonce.id}) }}"><i class="fa-regular fa-trash-can"></i></a></span>
+                {% endif %}
+            </div>
             {% if app.user %}
                 {% if annonce not in app.user.bookmarks %}
                     <span class="bookmark"><a href="{{ path("add_bookmark", {idAnnonce: annonce.id}) }}"><i class="fa-regular fa-heart"></i></a></span>

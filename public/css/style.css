@@ -32,6 +32,7 @@ nav {
     padding: 15px 35px;
     display: flex;
     justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 nav div {
     display: flex;
@@ -72,7 +73,7 @@ nav a {
 
 .annonce-box img {
     width: 100%;
-    height: 150px;
+    height: 200px;
     object-fit: cover;
     object-position: center;
 }
@@ -91,7 +92,9 @@ nav a {
 }
 
 .set-img-box {
-    width: 600px;
+    /* width: 600px; */
+    max-width: 50%;
+    flex-basis: 50%;
 }
 
 .set-img-box img {
@@ -178,4 +181,14 @@ nav a {
 .bookmark i {
     font-size: 20px;
     color:rgb(181, 34, 85)
+}
+
+.presentation {
+    display: flex;
+    gap: 50px;
+}
+
+.minifig-section {
+    max-width: 50%;
+    flex-basis: 50%;
 }
