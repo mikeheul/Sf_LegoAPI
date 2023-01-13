@@ -6,8 +6,22 @@
 
 <h1>Bookmarks</h1>
 
-{% for bookmark in bookmarks %}
-    <a href="{{ path('show_annonce', {id: bookmark.id}) }}">{{ bookmark.title }}</a>&nbsp;<span class="badge badge-danger"><a href=""><i class="fa-regular fa-trash-can"></i></a></span><br>
-{% endfor %}
+<table>
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for bookmark in bookmarks %}
+        <tr>
+            <td><a href="{{ path('show_annonce', {id: bookmark.id}) }}">{{ bookmark.title }}</a></td>
+            <td><span class="badge badge-danger"><a href=""><i class="fa-regular fa-trash-can"></i></a></span></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
 
 {% endblock %}

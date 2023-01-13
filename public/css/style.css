@@ -43,6 +43,23 @@ nav a {
     color: #fff;
 }
 
+table {
+    width: 100%;
+}
+
+thead {
+    background: rgb(70, 70, 70);
+    color: #fff;
+}
+
+th {
+    padding: 10px;
+}
+
+tr td {
+    text-align: center;
+}
+
 .annonces {
     max-width: 100%;
     display: flex;
