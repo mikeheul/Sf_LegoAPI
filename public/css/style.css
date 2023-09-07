@@ -214,3 +214,8 @@ tr td {
     max-width: 50%;
     flex-basis: 50%;
 }
+
+.small-txt {
+    text-align: center;
+    font-size: 0.8rem;
+}

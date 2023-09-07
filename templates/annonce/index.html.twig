@@ -17,6 +17,7 @@
         <p class="title">{{ annonce.title }}</p>
         <div>
             <span class="badge badge-default"><a href="{{ path("show_annonce", {id: annonce.id}) }}"><i class="fa-regular fa-eye"></i> Show</a></span>
+            <p class="small-txt">{{ annonce.comments | length }} comments</p>
         </div>
         
         <p class="thumb-price">{{ annonce.price }} &euro;</p>
